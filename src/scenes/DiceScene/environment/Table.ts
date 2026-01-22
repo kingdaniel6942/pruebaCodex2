@@ -1,5 +1,6 @@
 import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder";
 import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial";
+import { Texture } from "@babylonjs/core/Materials/Textures/texture";
 import { Color3 } from "@babylonjs/core/Maths/math.color";
 import { PhysicsAggregate } from "@babylonjs/core/Physics/v2/physicsAggregate";
 import { PhysicsShapeType } from "@babylonjs/core/Physics/v2/IPhysicsEnginePlugin";
@@ -16,7 +17,11 @@ export function createTable(scene: Scene) {
   table.position.y = -height / 2;
   table.isPickable = true;
   const material = new StandardMaterial("table-mat", scene);
-  material.diffuseColor = new Color3(0.4, 0.46, 0.5);
+  const woodTexture = new Texture("/textures/table-wood.png", scene, true, false);
+  woodTexture.uScale = 1.2;
+  woodTexture.vScale = 1.2;
+  material.diffuseTexture = woodTexture;
+  material.diffuseColor = new Color3(1, 1, 1);
   material.specularColor = new Color3(0.2, 0.2, 0.2);
   table.material = material;
 
