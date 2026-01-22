@@ -1,0 +1,1 @@
+export { DiceScene } from "./DiceScene";
