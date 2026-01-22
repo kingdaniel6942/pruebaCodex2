@@ -2,7 +2,7 @@ export const config = {
   debug: false,
   gravity: { x: 0, y: -9.81, z: 0 },
   dice: {
-    count: 3,
+    count: 2,
     size: 0.9,
     mass: 1,
     restitution: 0.35,
@@ -10,8 +10,8 @@ export const config = {
     linearSleepThreshold: 0.08,
     angularSleepThreshold: 0.12,
     settleFrames: 35,
-    impulseStrength: 6,
-    torqueStrength: 5
+    impulseStrength: 4.2,
+    torqueStrength: 4
   },
   table: {
     width: 8,

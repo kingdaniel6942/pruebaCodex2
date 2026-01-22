@@ -6,10 +6,13 @@ const bindings = createGameBindings();
 
 export default function App() {
   const state = useGameState(bindings.store);
+  const handleRoll = () => {
+    bindings.eventBus.emit("ROLL_REQUESTED", { source: "ui" });
+  };
 
   return (
     <div className="app-root">
-      <HUD state={state} />
+      <HUD state={state} onRoll={handleRoll} />
       <BabylonCanvas eventBus={bindings.eventBus} />
     </div>
   );

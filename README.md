@@ -32,7 +32,7 @@ src/
 ```
 
 ## Notas sobre Havok
-- `@babylonjs/havok` carga internamente el `.wasm`. Vite incluye `assetsInclude` para servirlo.
+- El `.wasm` se sirve desde `public/havok/HavokPhysics.wasm` para evitar problemas de MIME.
 - Si el navegador bloquea la carga del wasm, revisa la consola y asegúrate de correr con `npm run dev`.
 
 ## Controles

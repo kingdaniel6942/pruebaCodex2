@@ -1,4 +1,5 @@
 import { Vector3, Quaternion } from "@babylonjs/core/Maths/math.vector";
+import type { HavokPlugin } from "@babylonjs/core/Physics/v2/Plugins/havokPlugin";
 import type { PhysicsAggregate } from "@babylonjs/core/Physics/v2/physicsAggregate";
 import type { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { config } from "../../../core/config";
@@ -12,17 +13,21 @@ export class DiceController {
   reset(position: Vector3) {
     this.mesh.position.copyFrom(position);
     this.mesh.rotationQuaternion = Quaternion.Identity();
+    this.mesh.computeWorldMatrix(true);
     this.aggregate.body.setLinearVelocity(Vector3.Zero());
     this.aggregate.body.setAngularVelocity(Vector3.Zero());
-    this.aggregate.body.setTransform(position, this.mesh.rotationQuaternion);
+    const plugin = this.mesh.getScene().getPhysicsEngine()?.getPhysicsPlugin();
+    if (plugin && "setPhysicsBodyTransformation" in plugin) {
+      (plugin as HavokPlugin).setPhysicsBodyTransformation(this.aggregate.body, this.mesh);
+    }
     this.settleCounter = 0;
   }
 
   roll() {
     const impulse = new Vector3(
-      randomInRange(-1, 1),
-      randomInRange(0.6, 1.2),
-      randomInRange(-1, 1)
+      randomInRange(-0.6, 0.6),
+      randomInRange(1.0, 1.4),
+      randomInRange(-0.6, 0.6)
     ).normalize().scale(config.dice.impulseStrength);
 
     const torque = new Vector3(

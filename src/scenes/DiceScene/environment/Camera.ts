@@ -11,9 +11,10 @@ export function createCamera(scene: Scene) {
     new Vector3(0, 0.5, 0),
     scene
   );
-  camera.attachControl(true);
+  camera.inputs.clear();
   camera.lowerRadiusLimit = 8;
   camera.upperRadiusLimit = 16;
   camera.wheelDeltaPercentage = 0.01;
+  scene.activeCamera = camera;
   return camera;
 }
